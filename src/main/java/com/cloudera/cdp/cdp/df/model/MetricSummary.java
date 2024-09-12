@@ -31,7 +31,7 @@ import java.util.*;
 /**
  * Metric summary
  **/
-@javax.annotation.Generated(value = "com.cloudera.cdp.client.codegen.CdpSDKJavaCodegen", date = "2024-09-03T11:22:10.617-07:00")
+@jakarta.annotation.Generated(value = "com.cloudera.cdp.client.codegen.CdpSDKJavaCodegen", date = "2024-09-03T11:22:10.617-07:00")
 public class MetricSummary  {
 
   /**

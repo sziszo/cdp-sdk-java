@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * The network.
  **/
-@javax.annotation.Generated(value = "com.cloudera.cdp.client.codegen.CdpSDKJavaCodegen", date = "2024-09-03T11:22:09.163-07:00")
+@jakarta.annotation.Generated(value = "com.cloudera.cdp.client.codegen.CdpSDKJavaCodegen", date = "2024-09-03T11:22:09.163-07:00")
 public class Network  {
 
   /**

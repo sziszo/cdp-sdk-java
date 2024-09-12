@@ -15,20 +15,20 @@
     <skipUTs>${skipTests}</skipUTs>
 
     <bouncycastle.version>1.78.1</bouncycastle.version>
-    <commons-codec.version>1.11</commons-codec.version>
+    <commons-codec.version>1.16.1</commons-codec.version>
     <commons-lang3.version>3.11</commons-lang3.version>
     <guava.version>32.0.1-jre</guava.version>
     <httpclient.version>5.3.1</httpclient.version>
     <ini4j.version>0.5.4</ini4j.version>
-    <jackson.version>2.14.1</jackson.version>
+    <jackson.version>2.17.2</jackson.version>
     <javax-ws-rs.version>2.1.1</javax-ws-rs.version>
-    <jersey.version>2.34</jersey.version>
-    <jetty.version>9.4.53.v20231009</jetty.version>
+    <jersey.version>3.1.8</jersey.version>
+    <jetty.version>11.0.24</jetty.version>
     <jsr305.version>3.0.2</jsr305.version>
     <junit-jupiter.version>5.5.2</junit-jupiter.version>
     <junit-platform.version>1.5.2</junit-platform.version>
     <mockito.version>5.11.0</mockito.version>
-    <slf4j-api.version>1.7.29</slf4j-api.version>
+    <slf4j-api.version>2.0.9</slf4j-api.version>
     <spotbugs.version>4.8.3</spotbugs.version>
 
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
@@ -63,14 +63,19 @@
       <version>${jackson.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.fasterxml.jackson.jaxrs</groupId>
-      <artifactId>jackson-jaxrs-json-provider</artifactId>
-      <version>${jackson.version}</version>
+      <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+      <artifactId>jackson-jakarta-rs-json-provider</artifactId>
+      <version>2.17.2</version>
     </dependency>
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <version>${javax-ws-rs.version}</version>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>2.1.1</version>
     </dependency>
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
@@ -231,6 +236,17 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>${maven-jar-plugin.version}</version>
+          <executions>
+            <execution>
+<!--              <id>jakarta</id>-->
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <classifier>jakarta</classifier>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -452,4 +468,31 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>openrewrite</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.openrewrite.maven</groupId>
+            <artifactId>rewrite-maven-plugin</artifactId>
+            <version>5.39.2</version>
+            <configuration>
+              <exportDatatables>true</exportDatatables>
+              <activeRecipes>
+                <recipe>org.openrewrite.java.migrate.jakarta.JakartaEE10</recipe>
+              </activeRecipes>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>org.openrewrite.recipe</groupId>
+                <artifactId>rewrite-migrate-java</artifactId>
+                <version>2.23.0</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

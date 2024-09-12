@@ -31,7 +31,7 @@ import java.util.*;
 /**
  * Request object for provisioning Cloudera AI Inference Service instance groups.
  **/
-@javax.annotation.Generated(value = "com.cloudera.cdp.client.codegen.CdpSDKJavaCodegen", date = "2024-09-03T11:22:08.202-07:00")
+@jakarta.annotation.Generated(value = "com.cloudera.cdp.client.codegen.CdpSDKJavaCodegen", date = "2024-09-03T11:22:08.202-07:00")
 public class MlServingProvisionK8sRequest  {
 
   /**

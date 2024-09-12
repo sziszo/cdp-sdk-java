@@ -32,12 +32,13 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import javax.annotation.Nullable;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.UriBuilder;
+
+import jakarta.annotation.Nullable;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.UriBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.server.Request;
@@ -52,10 +53,10 @@ import org.slf4j.LoggerFactory;
  * login to CDP interactively.
  */
 public class CdpInteractiveLoginCredentialsProvider
-    implements CdpCredentialsProvider {
+  implements CdpCredentialsProvider {
 
   private static final Logger LOG =
-      LoggerFactory.getLogger(CdpInteractiveLoginCredentialsProvider.class);
+    LoggerFactory.getLogger(CdpInteractiveLoginCredentialsProvider.class);
 
   private static final Duration DEFAULT_LOGIN_TIMEOUT = Duration.ofMinutes(10);
   private static final String ALTUS_LOGIN_URL = "https://consoleauth.altus.cloudera.com/login";
@@ -65,16 +66,16 @@ public class CdpInteractiveLoginCredentialsProvider
   private static final int USE_RANDOM_UNUSED_PORT = 0;
 
   private static final String CLOSE_BROWSER_HTML =
-      "<!DOCTYPE html>\n" +
-          "<html>\n" +
-          "  <head>\n" +
-          "    <link rel=\"icon\" href=\"data:,\">\n" +
-          "    <meta charset=\"utf-8\" />\n" +
-          "  </head>\n" +
-          "  <body onload=\"window.close()\">\n" +
-          "    <p>It is safe to close your browser.</p>\n" +
-          "  </body>\n" +
-          "</html>";
+    "<!DOCTYPE html>\n" +
+      "<html>\n" +
+      "  <head>\n" +
+      "    <link rel=\"icon\" href=\"data:,\">\n" +
+      "    <meta charset=\"utf-8\" />\n" +
+      "  </head>\n" +
+      "  <body onload=\"window.close()\">\n" +
+      "    <p>It is safe to close your browser.</p>\n" +
+      "  </body>\n" +
+      "</html>";
 
   private final String accountId;
   private final String idp;
@@ -94,6 +95,7 @@ public class CdpInteractiveLoginCredentialsProvider
 
   /**
    * Login to CDP interactively by the default identity provider.
+   *
    * @param accountId The account id.
    */
   public CdpInteractiveLoginCredentialsProvider(String accountId) {
@@ -102,6 +104,7 @@ public class CdpInteractiveLoginCredentialsProvider
 
   /**
    * Login to CDP interactively by the default identity provider.
+   *
    * @param cdpRegion The region of the account.
    * @param accountId The account id.
    */
@@ -111,7 +114,8 @@ public class CdpInteractiveLoginCredentialsProvider
 
   /**
    * Login to CDP interactively.
-   * @param accountId The account id.
+   *
+   * @param accountId        The account id.
    * @param identityProvider The name or CRN of IdP used to login with.
    *                         The default IdP will be used if null or empty.
    */
@@ -121,8 +125,9 @@ public class CdpInteractiveLoginCredentialsProvider
 
   /**
    * Login to CDP interactively.
-   * @param cdpRegion The region of the account.
-   * @param accountId The account id.
+   *
+   * @param cdpRegion        The region of the account.
+   * @param accountId        The account id.
    * @param identityProvider The name or CRN of IdP used to login with.
    *                         The default IdP will be used if null or empty.
    */
@@ -132,13 +137,14 @@ public class CdpInteractiveLoginCredentialsProvider
 
   /**
    * Login to CDP interactively by the given CDP login URL.
-   * @param accountId The account id.
+   *
+   * @param accountId        The account id.
    * @param identityProvider The name or CRN of IdP used to login with.
    *                         The default IdP will be used if null or empty.
-   * @param loginUrl The CDP login URL.
-   * @param port The listening port number for CLI to receive the access token.
-   *             A random un-used port will be assigned if the value is zero.
-   * @param timeout The login timeout duration.
+   * @param loginUrl         The CDP login URL.
+   * @param port             The listening port number for CLI to receive the access token.
+   *                         A random un-used port will be assigned if the value is zero.
+   * @param timeout          The login timeout duration.
    */
   public CdpInteractiveLoginCredentialsProvider(String accountId, @Nullable String identityProvider, String loginUrl, int port, Duration timeout) {
     this.accountId = checkNotNullAndThrow(accountId);
@@ -175,7 +181,7 @@ public class CdpInteractiveLoginCredentialsProvider
     }
 
     throw new IllegalArgumentException(
-        "Login failed: missing access key id or private key.");
+      "Login failed: missing access key id or private key.");
   }
 
   @VisibleForTesting
